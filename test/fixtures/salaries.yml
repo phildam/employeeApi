@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  salary: MyString
+  from_date: 2018-01-18
+  to_date: 2018-01-18
+
+two:
+  employee: two
+  salary: MyString
+  from_date: 2018-01-18
+  to_date: 2018-01-18
