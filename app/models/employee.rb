@@ -2,7 +2,8 @@ class Employee < ApplicationRecord
   validates :first_name, presence: true
   validates :lastname, presence: true, length: { in: 2..30}
   validates :gender, presence: true, length: {in: 3..20}
-  validates :hire_date, presence: true
+  validates :hire_date, presence: true;
+  validates :birth_date, presence: true;
 
   has_many :salaries
   validates_associated :salaries

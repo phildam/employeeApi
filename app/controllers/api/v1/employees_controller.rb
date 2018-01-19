@@ -15,7 +15,23 @@ module Api
      end
 
      def create
-       employee=Employee.new()
+
+       employee=Employee.new(employee_params)
+
+       # employee.lastname= params[:lastname];
+       # employee.first_name= params[:first_name];
+       # employee.birth_date = params[:birth_date];
+       # employee.gender = params[:birth_date];
+       # employee.hire_date = params[:hire_date];
+       #
+
+
+       if employee.save
+
+         render json: {status: :ok, message: "Employee saved", data: employee}, status: :ok
+       else
+         render json: {status: "ERROR", message: "Employee not saved", data: employee.errors, inspect: params[:lastname]},status: :unprocessable_entity
+       end
 
      end
 
@@ -39,7 +55,8 @@ module Api
      end
 
      def employee_params
-       params.permit(:birth_date, :first_name, :lastname, :gender, :hire_date)
+       params.permit(:birth_date , :first_name,  :lastname,
+                        :gender,  :hire_date)
      end
 
    end
