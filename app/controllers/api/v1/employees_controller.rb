@@ -36,24 +36,37 @@ module Api
      end
 
      def show
-       employee=Employee.find(params[:id])
-       json_render employee
+        employee=Employee.where(id: params[:id]);
+       if employee.exists?
+          json_render employee
+       else
+          json_render("Data does not exist","failed","Retrieval failed",:unprocessable_entity)
+       end
+
      end
 
      def update
+        employee=Employee.find(params[:id])
+        if employee.update_attributes(employee_params)
+          json_render employee
+        else
+          json_render(employee, "failed","update failed",:unprocessable_entity)
+        end
 
      end
 
      def destroy
-
+        employee=Employee.find(params[:id]);
+        employee.destroy
+        if employee.destroyed?
+          json_render(employee,"success","Deleted",:ok);
+        else
+          json_render(employee,"failed","Deletion failed",:unprocessable_entity);
+        end
      end
 
 
      private
-     def json_render(model)
-       render json: {status: 'sucess', message: 'loaded employee',data: model}, status: :ok
-     end
-
      def employee_params
        params.permit(:birth_date , :first_name,  :lastname,
                         :gender,  :hire_date)
